@@ -21,7 +21,7 @@
   (let [hv (murmur/hash val)
         bin-index (bit-and (dec (count sketch)) hv)
         offset (Long/numberOfTrailingZeros (count sketch))
-        zeros (Long/numberOfTrailingZeros (bit-shift-right hv offset))]
+        zeros (inc (Long/numberOfTrailingZeros (bit-shift-right hv offset)))]
     (if (> zeros (sketch bin-index))
       (assoc sketch bin-index (byte zeros))
       sketch)))
